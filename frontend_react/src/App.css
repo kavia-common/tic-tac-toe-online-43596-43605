@@ -1,104 +1,205 @@
-/* CSS Variables for Theme Management */
-:root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+/* Theme variables are set via inline style in App.js for this app */
+.ttt-app {
+  min-height: 100vh;
+  background: var(--ttt-bg, #fff);
+  color: #282c34;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+.ttt-main {
+  width: 100vw;
+  max-width: 430px;
+  margin: 32px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--ttt-board, #f4f8fb);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px var(--ttt-shadow, rgba(25,118,210,0.09));
+  padding: 30px 18px 18px 18px;
+  border: 1.5px solid var(--ttt-border, #e0e0e0);
+  min-height: 540px;
 }
 
-.App {
+.ttt-title {
+  font-size: 2em;
+  font-weight: 700;
+  color: var(--ttt-primary, #1976d2);
+  margin: 0 0 18px 0;
+  letter-spacing: 2px;
   text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.ttt-score {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 22px;
+  background: var(--ttt-secondary, #eeeeee);
+  border-radius: 12px;
+  padding: 11px 0;
+  font-size: 1.15em;
+  box-shadow: 0 2px 13px 0 rgba(25,118,210,0.04);
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.ttt-score-x, .ttt-score-o, .ttt-score-d {
+  min-width: 62px;
+  text-align: center;
 }
+.ttt-score-x { color: var(--ttt-x, #1976d2); font-weight: bold; }
+.ttt-score-o { color: var(--ttt-o, #ff5252); font-weight: bold; }
+.ttt-score-d { color: #7e7e7e; }
 
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+.ttt-game-area {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.ttt-board {
+  margin: 12px 0;
 }
-
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+.ttt-row {
+  display: flex;
+}
+.ttt-square {
+  width: 72px;
+  height: 72px;
+  margin: 3px;
+  background: #fff;
+  border: 2.3px solid var(--ttt-border, #e0e0e0);
+  border-radius: 11px;
+  font-size: 2.1em;
+  font-weight: 700;
+  color: var(--ttt-primary, #1976d2);
+  outline: none;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background 0.19s, border-color 0.19s;
+  box-shadow: 0 1px 7px 0 rgba(25,118,210,0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+.ttt-square[disabled] {
+  background: #fafafa;
+  cursor: default;
+  opacity: 0.78;
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.ttt-square.highlight {
+  background: var(--ttt-highlight, #ffe0b2);
+  border-color: var(--ttt-accent, #ff5252);
+  color: var(--ttt-accent, #ff5252);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Style X and O differently if needed */
+.ttt-square {
+  /* By default, X shows in --ttt-x, O shows in --ttt-o */
+}
+.ttt-square::after {
+  display: none;
+}
+.ttt-square:focus {
+  box-shadow: 0 0 0 3px var(--ttt-primary, #1976d2, 0.18);
+}
+
+.ttt-status {
+  margin-top: 14px;
+  min-height: 35px;
+  font-size: 1.18em;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+}
+
+.ttt-status-x { color: var(--ttt-x, #1976d2); }
+.ttt-status-o { color: var(--ttt-o, #ff5252); }
+.ttt-status-winner {
+  color: var(--ttt-accent, #ff5252);
+  font-weight: bold;
+}
+.ttt-status-draw {
+  color: #888;
+  font-style: italic;
+}
+
+.ttt-controls {
+  display: flex;
+  gap: 16px;
+  margin: 20px 0 8px 0;
+}
+
+.ttt-btn {
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.16s, border 0.16s, color 0.16s;
+  border: 2px solid var(--ttt-primary, #1976d2);
+}
+.ttt-btn-primary {
+  background: var(--ttt-primary, #1976d2);
+  color: #fff;
+  border: 2px solid var(--ttt-primary, #1976d2);
+  box-shadow: 0 2px 6px 0 rgba(25,118,210,0.08);
+}
+.ttt-btn-primary:hover {
+  background: #115293;
+}
+.ttt-btn-outline {
+  background: transparent;
+  color: var(--ttt-primary, #1976d2);
+  border: 2px solid var(--ttt-primary, #1976d2);
+}
+.ttt-btn-outline:hover {
+  background: var(--ttt-primary, #1976d2, 0.09);
+  color: #115293;
+}
+
+.ttt-footer {
+  margin-top: 12px;
+  font-size: 0.97em;
+  color: #999;
+  letter-spacing: 1px;
+  user-select: none;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .ttt-main {
+    max-width: 97vw;
+    min-height: auto;
+    padding: 13px 4px 2vw 4px;
   }
-  to {
-    transform: rotate(360deg);
+  .ttt-square {
+    width: 44px;
+    height: 44px;
+    font-size: 1.25em;
+    margin: 2px;
+  }
+  .ttt-title {
+    font-size: 1.25em;
+    margin-bottom: 8px;
   }
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
-  }
+/* Custom scrollbar for extra polish */
+.ttt-app ::-webkit-scrollbar {
+  width: 7px;
+  background: #f2f2f2;
+}
+.ttt-app ::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 7px;
 }
